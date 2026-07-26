@@ -1,14 +1,7 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import { useState } from "react";
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 
-import { useListings } from '../context/ListingsContext';
+import { useListings } from "../context/ListingsContext";
 
 export default function EditListingScreen({ route, navigation }) {
   const { item } = route.params;
@@ -44,12 +37,7 @@ export default function EditListingScreen({ route, navigation }) {
       <TextInput style={styles.input} value={location} onChangeText={setLocation} />
 
       <Text style={styles.label}>Description</Text>
-      <TextInput
-        style={[styles.input, styles.textArea]}
-        value={description}
-        onChangeText={setDescription}
-        multiline
-      />
+      <TextInput style={[styles.input, styles.textArea]} value={description} onChangeText={setDescription} multiline />
 
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <Text style={styles.saveText}>Save Changes</Text>
@@ -65,61 +53,61 @@ export default function EditListingScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: "#F7F7F7",
     padding: 18,
   },
 
   title: {
     fontSize: 26,
-    fontWeight: '800',
-    color: '#222',
+    fontWeight: "800",
+    color: "#222",
     marginTop: 20,
     marginBottom: 20,
   },
 
   label: {
     fontSize: 14,
-    fontWeight: '700',
-    color: '#333',
+    fontWeight: "700",
+    color: "#333",
     marginBottom: 8,
     marginTop: 12,
   },
 
   input: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 14,
     paddingHorizontal: 14,
     paddingVertical: 12,
     borderWidth: 1,
-    borderColor: '#EEEEEE',
+    borderColor: "#EEEEEE",
     fontSize: 14,
     outlineWidth: 1,
-    outlineColor: '#F5A1A8',
+    outlineColor: "#F5A1A8",
   },
 
   textArea: {
     minHeight: 120,
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
   },
 
   saveButton: {
-    backgroundColor: '#E63946',
+    backgroundColor: "#E63946",
     paddingVertical: 15,
     borderRadius: 14,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 24,
   },
 
   saveText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: '800',
+    fontWeight: "800",
   },
 
   cancelText: {
-    textAlign: 'center',
-    color: '#777',
-    fontWeight: '700',
+    textAlign: "center",
+    color: "#777",
+    fontWeight: "700",
     marginTop: 16,
     marginBottom: 40,
   },

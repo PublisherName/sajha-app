@@ -1,12 +1,10 @@
-import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import BottomTabs from './BottomTabs';
-import ListingDetailScreen from '../screens/ListingDetailScreen';
-import PostListingScreen from '../screens/PostListingScreen';
-import SavedScreen from '../screens/SavedScreen';
-import MyListingsScreen from '../screens/MyListingsScreen';
-import EditListingScreen from '../screens/EditListingScreen';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import EditListingScreen from "../screens/EditListingScreen";
+import ListingDetailScreen from "../screens/ListingDetailScreen";
+import MyListingsScreen from "../screens/MyListingsScreen";
+import PostListingScreen from "../screens/PostListingScreen";
+import SavedScreen from "../screens/SavedScreen";
+import BottomTabs from "./BottomTabs";
 
 const Stack = createNativeStackNavigator();
 

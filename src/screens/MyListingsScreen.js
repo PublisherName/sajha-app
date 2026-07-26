@@ -1,14 +1,7 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import ListingCard from '../components/ListingCard';
-import { useListings } from '../context/ListingsContext';
+import ListingCard from "../components/ListingCard";
+import { useListings } from "../context/ListingsContext";
 
 export default function MyListingsScreen({ navigation }) {
   const { listings, deleteListing } = useListings();
@@ -18,36 +11,21 @@ export default function MyListingsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>My Listings</Text>
-      <Text style={styles.subtitle}>
-        Listings you have posted on Sajha.
-      </Text>
+      <Text style={styles.subtitle}>Listings you have posted on Sajha.</Text>
 
       <FlatList
         data={myListings}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.listingWrapper}>
-            <ListingCard
-              item={item}
-              onPress={() =>
-                navigation.navigate('ListingDetail', { item })
-              }
-            />
+            <ListingCard item={item} onPress={() => navigation.navigate("ListingDetail", { item })} />
 
             <View style={styles.actionRow}>
-              <TouchableOpacity
-                style={styles.editButton}
-                onPress={() =>
-                  navigation.navigate('EditListing', { item })
-                }
-              >
+              <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate("EditListing", { item })}>
                 <Text style={styles.editText}>Edit</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={() => deleteListing(item.id)}
-              >
+              <TouchableOpacity style={styles.deleteButton} onPress={() => deleteListing(item.id)}>
                 <Text style={styles.deleteText}>Delete</Text>
               </TouchableOpacity>
             </View>
@@ -56,9 +34,7 @@ export default function MyListingsScreen({ navigation }) {
         ListEmptyComponent={
           <View style={styles.emptyBox}>
             <Text style={styles.emptyTitle}>No listings yet</Text>
-            <Text style={styles.emptyText}>
-              Tap the + button to post your first listing.
-            </Text>
+            <Text style={styles.emptyText}>Tap the + button to post your first listing.</Text>
           </View>
         }
         contentContainerStyle={styles.list}
@@ -71,20 +47,20 @@ export default function MyListingsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: "#F7F7F7",
     padding: 18,
   },
 
   title: {
     fontSize: 26,
-    fontWeight: '800',
-    color: '#222',
+    fontWeight: "800",
+    color: "#222",
     marginTop: 20,
   },
 
   subtitle: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     marginTop: 6,
     marginBottom: 18,
   },
@@ -98,7 +74,7 @@ const styles = StyleSheet.create({
   },
 
   actionRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 10,
     marginTop: -4,
     marginBottom: 6,
@@ -106,51 +82,51 @@ const styles = StyleSheet.create({
 
   editButton: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     paddingVertical: 12,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
     borderWidth: 1,
-    borderColor: '#E63946',
+    borderColor: "#E63946",
   },
 
   editText: {
-    color: '#E63946',
-    fontWeight: '800',
+    color: "#E63946",
+    fontWeight: "800",
   },
 
   deleteButton: {
     flex: 1,
-    backgroundColor: '#E63946',
+    backgroundColor: "#E63946",
     paddingVertical: 12,
     borderRadius: 12,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   deleteText: {
-    color: '#FFFFFF',
-    fontWeight: '800',
+    color: "#FFFFFF",
+    fontWeight: "800",
   },
 
   emptyBox: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 22,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#EEEEEE',
+    borderColor: "#EEEEEE",
     marginTop: 10,
   },
 
   emptyTitle: {
     fontSize: 17,
-    fontWeight: '800',
-    color: '#222',
+    fontWeight: "800",
+    color: "#222",
     marginBottom: 6,
   },
 
   emptyText: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     lineHeight: 20,
   },
 });

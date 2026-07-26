@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import { listings as initialListings } from '../data/mockListing';
+import { createContext, useContext, useState } from "react";
+import { listings as initialListings } from "../data/mockListing";
 
 const ListingsContext = createContext();
 
@@ -12,30 +12,20 @@ export function ListingsProvider({ children }) {
   };
 
   const deleteListing = (listingId) => {
-    setListings((prevListings) =>
-      prevListings.filter((item) => item.id !== listingId)
-    );
+    setListings((prevListings) => prevListings.filter((item) => item.id !== listingId));
 
-    setSavedListingIds((prevIds) =>
-      prevIds.filter((id) => id !== listingId)
-    );
+    setSavedListingIds((prevIds) => prevIds.filter((id) => id !== listingId));
   };
 
   const updateListing = (listingId, updatedData) => {
     setListings((prevListings) =>
-      prevListings.map((item) =>
-        item.id === listingId
-          ? { ...item, ...updatedData }
-          : item
-      )
+      prevListings.map((item) => (item.id === listingId ? { ...item, ...updatedData } : item)),
     );
   };
 
   const toggleSaveListing = (listingId) => {
     setSavedListingIds((prevIds) =>
-      prevIds.includes(listingId)
-        ? prevIds.filter((id) => id !== listingId)
-        : [...prevIds, listingId]
+      prevIds.includes(listingId) ? prevIds.filter((id) => id !== listingId) : [...prevIds, listingId],
     );
   };
 

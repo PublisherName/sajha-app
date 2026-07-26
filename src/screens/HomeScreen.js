@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
+import { useState } from "react";
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import ListingCard from '../components/ListingCard';
-import { useListings } from '../context/ListingsContext';
+import ListingCard from "../components/ListingCard";
+import { useListings } from "../context/ListingsContext";
 
 export default function HomeScreen({ navigation }) {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [searchText, setSearchText] = useState('');
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [searchText, setSearchText] = useState("");
 
   const { listings } = useListings();
 
   const filteredListings = listings.filter((item) => {
-    const matchesCategory =
-      activeCategory === 'all' || item.type === activeCategory;
+    const matchesCategory = activeCategory === "all" || item.type === activeCategory;
 
     const matchesSearch =
       item.title.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -30,10 +22,10 @@ export default function HomeScreen({ navigation }) {
   });
 
   const categories = [
-    { label: 'All', value: 'all' },
-    { label: 'Jobs', value: 'job' },
-    { label: 'Rooms', value: 'room' },
-    { label: 'Market', value: 'market' },
+    { label: "All", value: "all" },
+    { label: "Jobs", value: "job" },
+    { label: "Rooms", value: "room" },
+    { label: "Market", value: "market" },
   ];
 
   return (
@@ -53,14 +45,7 @@ export default function HomeScreen({ navigation }) {
               onPress={() => setActiveCategory(category.value)}
               style={[styles.chip, isActive && styles.activeChip]}
             >
-              <Text
-                style={[
-                  styles.chipText,
-                  isActive && styles.activeChipText,
-                ]}
-              >
-                {category.label}
-              </Text>
+              <Text style={[styles.chipText, isActive && styles.activeChipText]}>{category.label}</Text>
             </TouchableOpacity>
           );
         })}
@@ -83,9 +68,7 @@ export default function HomeScreen({ navigation }) {
 
         <View style={styles.verifyContent}>
           <Text style={styles.verifyTitle}>Join the community</Text>
-          <Text style={styles.verifySubtitle}>
-            Verify your phone to message landlords, post jobs and chat.
-          </Text>
+          <Text style={styles.verifySubtitle}>Verify your phone to message landlords, post jobs and chat.</Text>
         </View>
 
         <Text style={styles.verifyArrow}>→</Text>
@@ -95,12 +78,7 @@ export default function HomeScreen({ navigation }) {
         data={filteredListings}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <ListingCard
-            item={item}
-            onPress={() =>
-              navigation.navigate('ListingDetail', { item })
-            }
-          />
+          <ListingCard item={item} onPress={() => navigation.navigate("ListingDetail", { item })} />
         )}
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
@@ -112,11 +90,11 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: "#F7F7F7",
   },
 
   header: {
-    backgroundColor: '#E63946',
+    backgroundColor: "#E63946",
     paddingTop: 38,
     paddingHorizontal: 18,
     paddingBottom: 18,
@@ -124,42 +102,42 @@ const styles = StyleSheet.create({
 
   logo: {
     fontSize: 28,
-    fontWeight: '800',
-    color: '#FFFFFF',
+    fontWeight: "800",
+    color: "#FFFFFF",
   },
 
   subtitle: {
     fontSize: 14,
-    color: '#FFE5E8',
+    color: "#FFE5E8",
     marginTop: 4,
   },
 
   chipRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 14,
     paddingVertical: 12,
     gap: 8,
   },
 
   chip: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     paddingHorizontal: 14,
     paddingVertical: 7,
     borderRadius: 20,
   },
 
   activeChip: {
-    backgroundColor: '#E63946',
+    backgroundColor: "#E63946",
   },
 
   chipText: {
-    color: '#555',
-    fontWeight: '500',
+    color: "#555",
+    fontWeight: "500",
   },
 
   activeChipText: {
-    color: '#FFFFFF',
-    fontWeight: '700',
+    color: "#FFFFFF",
+    fontWeight: "700",
   },
 
   searchBox: {
@@ -168,36 +146,36 @@ const styles = StyleSheet.create({
   },
 
   searchInput: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 14,
     paddingHorizontal: 14,
     paddingVertical: 10,
     outlineWidth: 1,
-    outlineColor: '#F5A1A8',
+    outlineColor: "#F5A1A8",
     fontSize: 14,
     borderWidth: 1,
-    borderColor: '#EEEEEE',
+    borderColor: "#EEEEEE",
   },
 
   verifyCard: {
-    backgroundColor: '#FFF4E5',
+    backgroundColor: "#FFF4E5",
     marginHorizontal: 14,
     marginBottom: 14,
     borderRadius: 18,
     padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
-    borderColor: '#F5D7A1',
+    borderColor: "#F5D7A1",
   },
 
   verifyIconContainer: {
     width: 46,
     height: 46,
     borderRadius: 23,
-    backgroundColor: '#FFE7CC',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#FFE7CC",
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 14,
   },
 
@@ -211,21 +189,21 @@ const styles = StyleSheet.create({
 
   verifyTitle: {
     fontSize: 20,
-    fontWeight: '800',
-    color: '#222',
+    fontWeight: "800",
+    color: "#222",
     marginBottom: 4,
   },
 
   verifySubtitle: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     lineHeight: 20,
   },
 
   verifyArrow: {
     fontSize: 24,
-    color: '#777',
-    fontWeight: '700',
+    color: "#777",
+    fontWeight: "700",
   },
 
   list: {

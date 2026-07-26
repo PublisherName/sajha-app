@@ -1,14 +1,13 @@
-import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
-import HomeScreen from '../screens/HomeScreen';
-import JobsScreen from '../screens/JobsScreen';
-import RoomsScreen from '../screens/RoomsScreen';
-import MarketScreen from '../screens/MarketScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import HomeScreen from "../screens/HomeScreen";
+import JobsScreen from "../screens/JobsScreen";
+import MarketScreen from "../screens/MarketScreen";
+import ProfileScreen from "../screens/ProfileScreen";
+import RoomsScreen from "../screens/RoomsScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,10 +16,7 @@ function PostButton() {
 
   return (
     <TouchableOpacity style={styles.postButtonContainer}>
-      <TouchableOpacity
-        style={styles.postButton}
-        onPress={() => navigation.navigate('PostListing')}
-      >
+      <TouchableOpacity style={styles.postButton} onPress={() => navigation.navigate("PostListing")}>
         <Ionicons name="add" size={32} color="#FFFFFF" />
       </TouchableOpacity>
     </TouchableOpacity>
@@ -33,11 +29,11 @@ export default function BottomTabs() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: true,
-        tabBarActiveTintColor: '#E63946',
-        tabBarInactiveTintColor: '#888',
+        tabBarActiveTintColor: "#E63946",
+        tabBarInactiveTintColor: "#888",
 
         tabBarStyle: {
-          position: 'absolute',
+          position: "absolute",
           height: 68,
           paddingBottom: 8,
           paddingTop: 8,
@@ -46,14 +42,14 @@ export default function BottomTabs() {
         },
 
         tabBarIcon: ({ color }) => {
-          let iconName = 'home';
+          let iconName = "home";
 
-          if (route.name === 'Home') iconName = 'home';
-          if (route.name === 'Jobs') iconName = 'briefcase';
-          if (route.name === 'Rooms') iconName = 'bed';
-          if (route.name === 'Market') iconName = 'cart';
-          if (route.name === 'Profile') iconName = 'person';
-          if (route.name === 'Post') return null;
+          if (route.name === "Home") iconName = "home";
+          if (route.name === "Jobs") iconName = "briefcase";
+          if (route.name === "Rooms") iconName = "bed";
+          if (route.name === "Market") iconName = "cart";
+          if (route.name === "Profile") iconName = "person";
+          if (route.name === "Post") return null;
 
           return <Ionicons name={iconName} size={22} color={color} />;
         },
@@ -66,7 +62,7 @@ export default function BottomTabs() {
         name="Post"
         component={HomeScreen}
         options={{
-          tabBarLabel: '',
+          tabBarLabel: "",
           tabBarButton: () => <PostButton />,
         }}
       />
@@ -81,21 +77,21 @@ export default function BottomTabs() {
 const styles = StyleSheet.create({
   postButtonContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   postButton: {
     width: 54,
     height: 54,
     borderRadius: 27,
-    backgroundColor: '#E63946',
+    backgroundColor: "#E63946",
 
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
 
     top: -18,
 
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOpacity: 0.18,
     shadowRadius: 8,
     elevation: 8,
