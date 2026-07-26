@@ -3,9 +3,9 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import ListingCard from "../components/ListingCard";
-import { useListings } from "../context/ListingsContext";
-import type { ListingCategory, RootStackParamList } from "../types";
+import ListingCard from "@/components/ListingCard";
+import { useListings } from "@/context/ListingsContext";
+import type { ListingCategory, RootStackParamList } from "@/types";
 
 export default function HomeScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();

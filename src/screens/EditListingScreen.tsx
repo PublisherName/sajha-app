@@ -2,8 +2,8 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 
-import { useListings } from "../context/ListingsContext";
-import type { RootStackParamList } from "../types";
+import { useListings } from "@/context/ListingsContext";
+import type { RootStackParamList } from "@/types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "EditListing">;
 

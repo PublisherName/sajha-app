@@ -1,9 +1,9 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
-import ListingCard from "../components/ListingCard";
-import { useListings } from "../context/ListingsContext";
-import type { RootStackParamList } from "../types";
+import ListingCard from "@/components/ListingCard";
+import { useListings } from "@/context/ListingsContext";
+import type { RootStackParamList } from "@/types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Saved">;
 

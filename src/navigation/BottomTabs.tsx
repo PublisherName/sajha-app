@@ -3,12 +3,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import HomeScreen from "../screens/HomeScreen";
-import JobsScreen from "../screens/JobsScreen";
-import MarketScreen from "../screens/MarketScreen";
-import ProfileScreen from "../screens/ProfileScreen";
-import RoomsScreen from "../screens/RoomsScreen";
-import type { RootStackParamList, TabParamList } from "../types";
+import HomeScreen from "@/screens/HomeScreen";
+import JobsScreen from "@/screens/JobsScreen";
+import MarketScreen from "@/screens/MarketScreen";
+import ProfileScreen from "@/screens/ProfileScreen";
+import RoomsScreen from "@/screens/RoomsScreen";
+import type { RootStackParamList, TabParamList } from "@/types";
 
 const Tab = createBottomTabNavigator<TabParamList>();
 

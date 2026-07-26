@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import { createContext, useContext, useState } from "react";
-import { listings as initialListings } from "../data/mockListing";
-import type { Listing, ListingsContextValue } from "../types";
+
+import { listings as initialListings } from "@/data/mockListing";
+import type { Listing, ListingsContextValue } from "@/types";
 
 const ListingsContext = createContext<ListingsContextValue | null>(null);
 

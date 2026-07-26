@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-import { useListings } from "../context/ListingsContext";
-import type { Listing } from "../types";
+import { useListings } from "@/context/ListingsContext";
+import type { Listing } from "@/types";
 
 interface ListingCardProps {
   item: Listing;

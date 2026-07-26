@@ -3,8 +3,8 @@ import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { useListings } from "../context/ListingsContext";
-import type { ListingCategory, RootStackParamList } from "../types";
+import { useListings } from "@/context/ListingsContext";
+import type { ListingCategory, RootStackParamList } from "@/types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "PostListing">;
 

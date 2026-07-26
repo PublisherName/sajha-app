@@ -1,5 +1,5 @@
-import { ListingsProvider } from "../src/context/ListingsContext";
-import AppNavigator from "../src/navigation/AppNavigator";
+import { ListingsProvider } from "@/context/ListingsContext";
+import AppNavigator from "@/navigation/AppNavigator";
 
 export default function Index() {
   return (
