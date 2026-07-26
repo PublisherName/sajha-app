@@ -1,11 +1,14 @@
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
 import ListingCard from "../components/ListingCard";
 import { useListings } from "../context/ListingsContext";
+import type { RootStackParamList } from "../types";
 
-export default function SavedScreen({ navigation }) {
+type Props = NativeStackScreenProps<RootStackParamList, "Saved">;
+
+export default function SavedScreen({ navigation }: Props) {
   const { listings, savedListingIds } = useListings();
-
   const savedListings = listings.filter((item) => savedListingIds.includes(item.id));
 
   return (

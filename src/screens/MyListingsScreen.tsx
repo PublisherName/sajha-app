@@ -1,11 +1,14 @@
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import ListingCard from "../components/ListingCard";
 import { useListings } from "../context/ListingsContext";
+import type { RootStackParamList } from "../types";
 
-export default function MyListingsScreen({ navigation }) {
+type Props = NativeStackScreenProps<RootStackParamList, "MyListings">;
+
+export default function MyListingsScreen({ navigation }: Props) {
   const { listings, deleteListing } = useListings();
-
   const myListings = listings.filter((item) => item.isMine);
 
   return (

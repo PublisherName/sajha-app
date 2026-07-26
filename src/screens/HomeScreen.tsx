@@ -1,27 +1,29 @@
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import ListingCard from "../components/ListingCard";
 import { useListings } from "../context/ListingsContext";
+import type { ListingCategory, RootStackParamList } from "../types";
 
-export default function HomeScreen({ navigation }) {
-  const [activeCategory, setActiveCategory] = useState("all");
+export default function HomeScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [activeCategory, setActiveCategory] = useState<ListingCategory | "all">("all");
   const [searchText, setSearchText] = useState("");
 
   const { listings } = useListings();
 
   const filteredListings = listings.filter((item) => {
     const matchesCategory = activeCategory === "all" || item.type === activeCategory;
-
     const matchesSearch =
       item.title.toLowerCase().includes(searchText.toLowerCase()) ||
       item.location.toLowerCase().includes(searchText.toLowerCase()) ||
       item.description.toLowerCase().includes(searchText.toLowerCase());
-
     return matchesCategory && matchesSearch;
   });
 
-  const categories = [
+  const categories: { label: string; value: ListingCategory | "all" }[] = [
     { label: "All", value: "all" },
     { label: "Jobs", value: "job" },
     { label: "Rooms", value: "room" },
@@ -38,7 +40,6 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.chipRow}>
         {categories.map((category) => {
           const isActive = activeCategory === category.value;
-
           return (
             <TouchableOpacity
               key={category.value}

@@ -1,14 +1,17 @@
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Image, Linking, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function ListingDetailScreen({ route, navigation }) {
+import type { RootStackParamList } from "../types";
+
+type Props = NativeStackScreenProps<RootStackParamList, "ListingDetail">;
+
+export default function ListingDetailScreen({ route, navigation }: Props) {
   const { item } = route.params;
 
   const openWhatsApp = () => {
     const message = `Hi, I saw your listing on Sajha: ${item.title}`;
-    const phoneNumber = item.phoneNumber || "447000000000"; // replace later with poster phone number
-
+    const phoneNumber = item.phoneNumber || "447000000000";
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
     Linking.openURL(url);
   };
 

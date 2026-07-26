@@ -2,10 +2,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { useListings } from "../context/ListingsContext";
+import type { Listing } from "../types";
 
-export default function ListingCard({ item, onPress }) {
+interface ListingCardProps {
+  item: Listing;
+  onPress: () => void;
+}
+
+export default function ListingCard({ item, onPress }: ListingCardProps) {
   const { toggleSaveListing, isListingSaved } = useListings();
-
   const saved = isListingSaved(item.id);
 
   return (

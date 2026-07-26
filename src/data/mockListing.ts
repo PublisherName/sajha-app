@@ -1,10 +1,12 @@
-export const listings = [
+import type { Listing } from "../types";
+
+export const listings: Listing[] = [
   {
     id: "1",
     type: "job",
     title: "Kitchen Assistant Needed",
     location: "Aldershot, UK",
-    price: "£11.50/hr",
+    price: "\u00A311.50/hr",
     description: "Part-time kitchen assistant needed for Nepali restaurant.",
     postedAt: "2h ago",
   },
@@ -13,7 +15,7 @@ export const listings = [
     type: "room",
     title: "Single Room Available",
     location: "Reading, UK",
-    price: "£450/month",
+    price: "\u00A3450/month",
     description: "Clean single room near town centre. Bills included.",
     postedAt: "5h ago",
   },
@@ -22,7 +24,7 @@ export const listings = [
     type: "market",
     title: "iPhone 13 for Sale",
     location: "London, UK",
-    price: "£320",
+    price: "\u00A3320",
     description: "Good condition, unlocked, battery health 88%.",
     postedAt: "1d ago",
   },
@@ -31,7 +33,7 @@ export const listings = [
     type: "job",
     title: "Care Assistant Vacancy",
     location: "Maidstone, UK",
-    price: "£12/hr",
+    price: "\u00A312/hr",
     description: "Care assistant role available. Experience preferred.",
     postedAt: "1d ago",
   },

@@ -1,6 +1,11 @@
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function ProfileScreen({ navigation }) {
+import type { RootStackParamList } from "../types";
+
+export default function ProfileScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
       <View style={styles.avatar}>

@@ -1,9 +1,13 @@
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from "react-native";
 
 import { useListings } from "../context/ListingsContext";
+import type { RootStackParamList } from "../types";
 
-export default function EditListingScreen({ route, navigation }) {
+type Props = NativeStackScreenProps<RootStackParamList, "EditListing">;
+
+export default function EditListingScreen({ route, navigation }: Props) {
   const { item } = route.params;
   const { updateListing } = useListings();
 
@@ -13,13 +17,7 @@ export default function EditListingScreen({ route, navigation }) {
   const [description, setDescription] = useState(item.description);
 
   const handleSave = () => {
-    updateListing(item.id, {
-      title,
-      price,
-      location,
-      description,
-    });
-
+    updateListing(item.id, { title, price, location, description });
     navigation.goBack();
   };
 

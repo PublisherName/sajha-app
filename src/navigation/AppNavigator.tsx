@@ -4,9 +4,10 @@ import ListingDetailScreen from "../screens/ListingDetailScreen";
 import MyListingsScreen from "../screens/MyListingsScreen";
 import PostListingScreen from "../screens/PostListingScreen";
 import SavedScreen from "../screens/SavedScreen";
+import type { RootStackParamList } from "../types";
 import BottomTabs from "./BottomTabs";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
   return (

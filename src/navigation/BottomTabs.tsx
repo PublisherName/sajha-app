@@ -1,18 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StyleSheet, TouchableOpacity } from "react-native";
-
 import HomeScreen from "../screens/HomeScreen";
 import JobsScreen from "../screens/JobsScreen";
 import MarketScreen from "../screens/MarketScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import RoomsScreen from "../screens/RoomsScreen";
+import type { RootStackParamList, TabParamList } from "../types";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TabParamList>();
 
 function PostButton() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   return (
     <TouchableOpacity style={styles.postButtonContainer}>
@@ -42,7 +43,7 @@ export default function BottomTabs() {
         },
 
         tabBarIcon: ({ color }) => {
-          let iconName = "home";
+          let iconName: React.ComponentProps<typeof Ionicons>["name"] = "home";
 
           if (route.name === "Home") iconName = "home";
           if (route.name === "Jobs") iconName = "briefcase";
