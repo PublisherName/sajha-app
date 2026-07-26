@@ -1,7 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Text, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 
+import MenuItem from "@/components/MenuItem";
+import ProfileHeader from "@/components/ProfileHeader";
 import type { RootStackParamList } from "@/types";
 
 import { styles } from "./ProfileScreen.styles";
@@ -11,23 +13,13 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.avatar}>
-        <Text style={styles.avatarText}>SG</Text>
-      </View>
+      <ProfileHeader name="Sajha User" email="user@sajha.co.uk" />
 
-      <Text style={styles.name}>Sajha User</Text>
-
-      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate("Saved")}>
-        <Text style={styles.menuText}>❤️ Saved Listings</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate("MyListings")}>
-        <Text style={styles.menuText}>📄 My Listings</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.menuButton}>
-        <Text style={styles.menuText}>⚙️ Settings</Text>
-      </TouchableOpacity>
+      <MenuItem icon="heart-outline" label="Saved Listings" onPress={() => navigation.navigate("Saved")} />
+      <MenuItem icon="document-text-outline" label="My Listings" onPress={() => navigation.navigate("MyListings")} />
+      <MenuItem icon="settings-outline" label="Settings" />
+      <MenuItem icon="information-circle-outline" label="About" />
+      <MenuItem icon="log-out-outline" label="Sign Out" />
     </View>
   );
 }
