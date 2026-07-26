@@ -1,9 +1,18 @@
-import { Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+import CategoryScreen from "@/components/CategoryScreen";
+import type { RootStackParamList } from "@/types";
 
 export default function RoomsScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
-    <View>
-      <Text>Rooms Screen</Text>
-    </View>
+    <CategoryScreen
+      title="Rooms"
+      subtitle="Browse available rooms and flatshares."
+      category="room"
+      navigation={navigation}
+    />
   );
 }
