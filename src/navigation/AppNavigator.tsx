@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import EditListingScreen from "@/screens/EditListingScreen";
-import ListingDetailScreen from "@/screens/ListingDetailScreen";
-import MyListingsScreen from "@/screens/MyListingsScreen";
-import PostListingScreen from "@/screens/PostListingScreen";
-import SavedScreen from "@/screens/SavedScreen";
+import EditListingScreen from "@/screens/listings/EditListingScreen";
+import MyListingsScreen from "@/screens/listings/MyListingsScreen";
+import PostListingScreen from "@/screens/listings/PostListingScreen";
+import SavedScreen from "@/screens/listings/SavedScreen";
+import ViewListingScreen from "@/screens/listings/ViewListingScreen";
 import type { RootStackParamList } from "@/types";
 import BottomTabs from "./BottomTabs";
 
@@ -13,7 +13,7 @@ export default function AppNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTabs" component={BottomTabs} />
-      <Stack.Screen name="ListingDetail" component={ListingDetailScreen} />
+      <Stack.Screen name="ListingDetail" component={ViewListingScreen} />
       <Stack.Screen name="PostListing" component={PostListingScreen} />
       <Stack.Screen name="Saved" component={SavedScreen} />
       <Stack.Screen name="MyListings" component={MyListingsScreen} />
