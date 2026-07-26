@@ -1,7 +1,9 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { ScrollView, Text, TextInput, TouchableOpacity } from "react-native";
+import { ScrollView, Text, TouchableOpacity } from "react-native";
 
+import FormInput from "@/components/FormInput";
+import ScreenTitle from "@/components/ScreenTitle";
 import { useListings } from "@/context/ListingsContext";
 import type { RootStackParamList } from "@/types";
 
@@ -25,19 +27,12 @@ export default function EditListingScreen({ route, navigation }: Props) {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Edit Listing</Text>
+      <ScreenTitle title="Edit Listing" />
 
-      <Text style={styles.label}>Title</Text>
-      <TextInput style={styles.input} value={title} onChangeText={setTitle} />
-
-      <Text style={styles.label}>Price / Pay</Text>
-      <TextInput style={styles.input} value={price} onChangeText={setPrice} />
-
-      <Text style={styles.label}>Location</Text>
-      <TextInput style={styles.input} value={location} onChangeText={setLocation} />
-
-      <Text style={styles.label}>Description</Text>
-      <TextInput style={[styles.input, styles.textArea]} value={description} onChangeText={setDescription} multiline />
+      <FormInput label="Title" value={title} onChangeText={setTitle} />
+      <FormInput label="Price / Pay" value={price} onChangeText={setPrice} />
+      <FormInput label="Location" value={location} onChangeText={setLocation} />
+      <FormInput label="Description" value={description} onChangeText={setDescription} multiline />
 
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <Text style={styles.saveText}>Save Changes</Text>

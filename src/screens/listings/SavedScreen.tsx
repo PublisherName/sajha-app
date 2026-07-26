@@ -1,7 +1,9 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 
+import EmptyState from "@/components/EmptyState";
 import ListingCard from "@/components/ListingCard";
+import ScreenTitle from "@/components/ScreenTitle";
 import { useListings } from "@/context/ListingsContext";
 import type { RootStackParamList } from "@/types";
 
@@ -15,8 +17,7 @@ export default function SavedScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Saved Listings</Text>
-      <Text style={styles.subtitle}>Your saved jobs, rooms, and marketplace items.</Text>
+      <ScreenTitle title="Saved Listings" subtitle="Your saved jobs, rooms, and marketplace items." />
 
       <FlatList
         data={savedListings}
@@ -25,10 +26,7 @@ export default function SavedScreen({ navigation }: Props) {
           <ListingCard item={item} onPress={() => navigation.navigate("ListingDetail", { item })} />
         )}
         ListEmptyComponent={
-          <View style={styles.emptyBox}>
-            <Text style={styles.emptyTitle}>No saved listings yet</Text>
-            <Text style={styles.emptyText}>Tap the heart icon on any listing to save it here.</Text>
-          </View>
+          <EmptyState title="No saved listings yet" text="Tap the heart icon on any listing to save it here." />
         }
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}

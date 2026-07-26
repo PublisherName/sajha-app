@@ -1,8 +1,11 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
+import FormInput from "@/components/FormInput";
+import ImagePickerBox from "@/components/ImagePickerBox";
+import ScreenTitle from "@/components/ScreenTitle";
 import { useListings } from "@/context/ListingsContext";
 import type { ListingCategory, RootStackParamList } from "@/types";
 
@@ -104,8 +107,7 @@ export default function PostListingScreen({ navigation }: Props) {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Post a Listing</Text>
-      <Text style={styles.subtitle}>Share jobs, rooms, or marketplace items with the community.</Text>
+      <ScreenTitle title="Post a Listing" subtitle="Share jobs, rooms, or marketplace items with the community." />
 
       <Text style={styles.label}>Category</Text>
 
@@ -129,26 +131,17 @@ export default function PostListingScreen({ navigation }: Props) {
 
       <Text style={styles.label}>{imageLabels[category]}</Text>
 
-      <TouchableOpacity style={styles.imagePickerBox} onPress={pickImage}>
-        {imageUri ? (
-          <Image source={{ uri: imageUri }} style={styles.imagePreview} />
-        ) : (
-          <Text style={styles.imagePickerText}>+ Add Image</Text>
-        )}
-      </TouchableOpacity>
+      <ImagePickerBox imageUri={imageUri} onPress={pickImage} />
 
       {formFields[category].map((field) => (
-        <View key={field.key}>
-          <Text style={styles.label}>{field.label}</Text>
-          <TextInput
-            style={[styles.input, field.multiline && styles.textArea]}
-            placeholder={field.placeholder}
-            multiline={field.multiline}
-            placeholderTextColor="#777"
-            value={formData[field.key] || ""}
-            onChangeText={(value) => updateField(field.key, value)}
-          />
-        </View>
+        <FormInput
+          key={field.key}
+          label={field.label}
+          value={formData[field.key] || ""}
+          onChangeText={(value) => updateField(field.key, value)}
+          placeholder={field.placeholder}
+          multiline={field.multiline}
+        />
       ))}
 
       <TouchableOpacity style={styles.submitButton} onPress={handlePublish}>

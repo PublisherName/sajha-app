@@ -1,6 +1,7 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Image, Linking, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
+import WhatsAppButton from "@/components/WhatsAppButton";
 import type { RootStackParamList } from "@/types";
 
 import { styles } from "./ViewListingScreen.styles";
@@ -40,9 +41,7 @@ export default function ListingDetailScreen({ route, navigation }: Props) {
       <Text style={styles.sectionTitle}>Description</Text>
       <Text style={styles.description}>{item.description}</Text>
 
-      <TouchableOpacity style={styles.whatsappButton} onPress={openWhatsApp}>
-        <Text style={styles.whatsappText}>Contact on WhatsApp</Text>
-      </TouchableOpacity>
+      <WhatsAppButton onPress={openWhatsApp} />
     </ScrollView>
   );
 }

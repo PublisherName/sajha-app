@@ -1,7 +1,9 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 
+import EmptyState from "@/components/EmptyState";
 import ListingCard from "@/components/ListingCard";
+import ScreenTitle from "@/components/ScreenTitle";
 import { useListings } from "@/context/ListingsContext";
 import type { RootStackParamList } from "@/types";
 
@@ -15,8 +17,7 @@ export default function MyListingsScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>My Listings</Text>
-      <Text style={styles.subtitle}>Listings you have posted on Sajha.</Text>
+      <ScreenTitle title="My Listings" subtitle="Listings you have posted on Sajha." />
 
       <FlatList
         data={myListings}
@@ -36,12 +37,7 @@ export default function MyListingsScreen({ navigation }: Props) {
             </View>
           </View>
         )}
-        ListEmptyComponent={
-          <View style={styles.emptyBox}>
-            <Text style={styles.emptyTitle}>No listings yet</Text>
-            <Text style={styles.emptyText}>Tap the + button to post your first listing.</Text>
-          </View>
-        }
+        ListEmptyComponent={<EmptyState title="No listings yet" text="Tap the + button to post your first listing." />}
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
       />
