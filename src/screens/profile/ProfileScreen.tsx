@@ -14,13 +14,13 @@ import { styles } from "./ProfileScreen.styles";
 export default function ProfileScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const router = useRouter();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   return (
     <View style={styles.container}>
       <Header title="Profile" />
 
-      <ProfileHeader name="Sajha User" email="user@sajha.co.uk" />
+      <ProfileHeader name={user?.name ?? "Sajha User"} email={user?.email} initials={user?.initials} />
 
       <View style={styles.menuSection}>
         <MenuItem icon="heart-outline" label="Saved Listings" onPress={() => navigation.navigate("Saved")} />

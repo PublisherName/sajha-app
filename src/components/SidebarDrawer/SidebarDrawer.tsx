@@ -23,7 +23,7 @@ export default function SidebarDrawer(props: DrawerContentComponentProps) {
   const { navigation, state } = props;
   const rootNavigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const router = useRouter();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const currentRoute = state.routes[state.index]?.name;
   const insets = useSafeAreaInsets();
 
@@ -31,10 +31,10 @@ export default function SidebarDrawer(props: DrawerContentComponentProps) {
     <View style={styles.container}>
       <View style={[styles.profileSection, { paddingTop: insets.top + 20 }]}>
         <View style={styles.avatar}>
-          <Text style={styles.avatarText}>SU</Text>
+          <Text style={styles.avatarText}>{user?.initials ?? "SU"}</Text>
         </View>
-        <Text style={styles.name}>Sajha User</Text>
-        <Text style={styles.handle}>@sajhauser</Text>
+        <Text style={styles.name}>{user?.name ?? "Sajha User"}</Text>
+        <Text style={styles.handle}>@{user?.email?.split("@")[0] ?? "sajhauser"}</Text>
       </View>
 
       <ScrollView style={styles.menuSection} contentContainerStyle={styles.menuContent}>

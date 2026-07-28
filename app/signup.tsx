@@ -1,7 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -16,8 +25,9 @@ export default function SignupScreen() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     setError("");
     if (!name.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
       setError("Please fill in all fields.");
@@ -31,11 +41,13 @@ export default function SignupScreen() {
       setError("Password must be at least 6 characters.");
       return;
     }
-    const success = signup(name.trim(), email.trim(), password);
-    if (success) {
-      router.replace("/");
+    setLoading(true);
+    const result = await signup(name.trim(), email.trim(), password);
+    setLoading(false);
+    if (result.error) {
+      setError(result.error);
     } else {
-      setError("Something went wrong. Please try again.");
+      router.replace("/");
     }
   };
 
@@ -109,8 +121,17 @@ export default function SignupScreen() {
               secureTextEntry={!showPassword}
             />
 
-            <TouchableOpacity style={styles.signupButton} onPress={handleSignup} activeOpacity={0.85}>
-              <Text style={styles.signupButtonText}>Create Account</Text>
+            <TouchableOpacity
+              style={[styles.signupButton, loading && { opacity: 0.7 }]}
+              onPress={handleSignup}
+              activeOpacity={0.85}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#FFF" />
+              ) : (
+                <Text style={styles.signupButtonText}>Create Account</Text>
+              )}
             </TouchableOpacity>
 
             <View style={styles.divider}>

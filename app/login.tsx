@@ -1,7 +1,15 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { useAuth } from "@/context/AuthContext";
 
@@ -14,18 +22,21 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError("");
     if (!email.trim() || !password.trim()) {
       setError("Please enter both email and password.");
       return;
     }
-    const success = login(email.trim(), password);
-    if (success) {
-      router.replace("/");
+    setLoading(true);
+    const result = await login(email.trim(), password);
+    setLoading(false);
+    if (result.error) {
+      setError(result.error);
     } else {
-      setError("Invalid credentials. Please try again.");
+      router.replace("/");
     }
   };
 
@@ -78,8 +89,13 @@ export default function LoginScreen() {
             <Text style={styles.forgotPasswordText}>Forgot password?</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.loginButton} onPress={handleLogin} activeOpacity={0.85}>
-            <Text style={styles.loginButtonText}>Log In</Text>
+          <TouchableOpacity
+            style={[styles.loginButton, loading && { opacity: 0.7 }]}
+            onPress={handleLogin}
+            activeOpacity={0.85}
+            disabled={loading}
+          >
+            {loading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.loginButtonText}>Log In</Text>}
           </TouchableOpacity>
 
           <View style={styles.divider}>
