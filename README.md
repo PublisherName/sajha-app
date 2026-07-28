@@ -1,50 +1,79 @@
-# Welcome to your Expo app 👋
+# Sajha : UK Nepali Community Hub
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native/Expo app for the UK Nepali community to post and browse jobs, rooms, and marketplace listings.
 
-## Get started
+## Tech Stack
 
-1. Install dependencies
+- **React Native** 0.81 + **Expo SDK** 54
+- **Expo Router** v6 (file-based routing entry) + **React Navigation** v7 (drawer + stack)
+- **Supabase** - Auth (email/password, MFA/TOTP), PostgreSQL database
+- **TypeScript**, **Biome** linter, **pnpm**
 
-   ```bash
-   npm install
-   ```
+## Features
 
-2. Start the app
+- **Auth** - Sign up, log in, log out, forgot password, change password
+- **2FA** - TOTP-based two-factor authentication via authenticator apps
+- **Sidebar navigation** - Twitter-style drawer with profile, menu, new post
+- **Listings** - Post, edit, delete jobs/rooms/market items with image picker
+- **Saved listings** - Save/unsave any listing (persisted to Supabase)
+- **My listings** - View and manage your own listings
+- **Profile** - Edit name, phone number, notification preferences
+- **Settings** - Account, notifications, privacy, appearance, support
 
-   ```bash
-   npx expo start
-   ```
+## Getting Started
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Install dependencies
 
 ```bash
-npm run reset-project
+pnpm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Environment variables
 
-## Learn more
+Create a `.env` file from the example:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+cp .env.example .env
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Fill in your Supabase credentials:
 
-## Join the community
+```
+EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-Join our community of developers creating universal apps.
+### 3. Database setup
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Run the SQL schemas in your Supabase SQL Editor (in order):
+
+1. `schemas/profiles.sql` - User profiles table
+2. `schemas/listings.sql` - Listings table
+3. `schemas/saved_listings.sql` - Saved listings table
+
+For existing databases, run the migrations instead:
+
+```sql
+-- schemas/profiles_migrations.sql
+```
+
+### 4. Start the app
+
+```bash
+pnpm start
+```
+
+## Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `pnpm start` | Start Expo dev server |
+| `pnpm android` | Start Expo dev server for Android |
+| `pnpm ios` | Start Expo dev server for iOS |
+| `pnpm web` | Start Expo dev server for web |
+| `pnpm type:check` | Run TypeScript type checking |
+| `pnpm lint` | Run Biome linter |
+| `pnpm lint:fix` | Run Biome linter with auto-fix |
+| `pnpm format` | Format all files with Biome |
+| `pnpm check` | Run Biome checks (lint + format) |
+| `pnpm check:fix` | Run Biome checks with auto-fix |
