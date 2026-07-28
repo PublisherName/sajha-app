@@ -95,6 +95,47 @@ export const styles = StyleSheet.create({
     marginTop: 2,
   },
 
+  editRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F5F5F5",
+    gap: 10,
+  },
+
+  editIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: "#FFF4E5",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  editInput: {
+    flex: 1,
+    fontSize: 15,
+    color: "#222",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E63946",
+    paddingVertical: 4,
+  },
+
+  errorRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginHorizontal: 16,
+    marginTop: 12,
+  },
+
+  errorText: {
+    color: "#E63946",
+    fontSize: 13,
+  },
+
   bottomSpacer: {
     height: 40,
   },

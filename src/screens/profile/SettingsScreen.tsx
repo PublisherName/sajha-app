@@ -1,8 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { ScrollView, Switch, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, ScrollView, Switch, Text, TextInput, TouchableOpacity, View } from "react-native";
 
+import { useAuth } from "@/context/AuthContext";
 import type { RootStackParamList } from "@/types";
 
 import { styles } from "./SettingsScreen.styles";
@@ -61,9 +62,51 @@ function SettingToggle({ icon, label, description, value, onValueChange }: Setti
 }
 
 export default function SettingsScreen({ navigation }: Props) {
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [emailAlerts, setEmailAlerts] = useState(false);
+  const { user, profile, updateProfile } = useAuth();
   const [darkMode, setDarkMode] = useState(false);
+
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
+  const [name, setName] = useState(user?.name ?? "");
+  const [phone, setPhone] = useState(user?.phone ?? "");
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSaveName = async () => {
+    if (!name.trim()) {
+      setError("Name cannot be empty.");
+      return;
+    }
+    setSaving(true);
+    setError("");
+    const result = await updateProfile({ name: name.trim() });
+    setSaving(false);
+    if (result.error) {
+      setError(result.error);
+    } else {
+      setIsEditingName(false);
+    }
+  };
+
+  const handleSavePhone = async () => {
+    setSaving(true);
+    setError("");
+    const result = await updateProfile({ phone: phone.trim() });
+    setSaving(false);
+    if (result.error) {
+      setError(result.error);
+    } else {
+      setIsEditingPhone(false);
+    }
+  };
+
+  const handleTogglePushNotifications = async (value: boolean) => {
+    await updateProfile({ pushNotifications: value });
+  };
+
+  const handleToggleEmailAlerts = async (value: boolean) => {
+    await updateProfile({ emailAlerts: value });
+  };
 
   return (
     <View style={styles.container}>
@@ -76,11 +119,97 @@ export default function SettingsScreen({ navigation }: Props) {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {error ? (
+          <View style={styles.errorRow}>
+            <Ionicons name="alert-circle" size={16} color="#E63946" />
+            <Text style={styles.errorText}>{error}</Text>
+          </View>
+        ) : null}
+
         <Text style={styles.sectionTitle}>Account</Text>
         <View style={styles.section}>
-          <SettingItem icon="person-outline" label="Edit Profile" value="Sajha User" />
-          <SettingItem icon="mail-outline" label="Email" value="user@sajha.co.uk" />
-          <SettingItem icon="call-outline" label="Phone Number" value="+44 7700 900123" />
+          {isEditingName ? (
+            <View style={styles.editRow}>
+              <View style={styles.editIcon}>
+                <Ionicons name="person-outline" size={18} color="#E63946" />
+              </View>
+              <TextInput
+                style={styles.editInput}
+                value={name}
+                onChangeText={setName}
+                autoFocus
+                placeholder="Enter your name"
+                placeholderTextColor="#AAA"
+              />
+              <TouchableOpacity onPress={handleSaveName} disabled={saving}>
+                {saving ? (
+                  <ActivityIndicator size="small" color="#E63946" />
+                ) : (
+                  <Ionicons name="checkmark-circle" size={24} color="#E63946" />
+                )}
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={styles.settingItem}
+              onPress={() => {
+                setName(user?.name ?? "");
+                setIsEditingName(true);
+              }}
+            >
+              <View style={styles.settingIcon}>
+                <Ionicons name="person-outline" size={18} color="#E63946" />
+              </View>
+              <View style={styles.settingContent}>
+                <Text style={styles.settingLabel}>Edit Profile</Text>
+                <Text style={styles.settingValue}>{user?.name ?? "Not set"}</Text>
+              </View>
+              <Ionicons name="create-outline" size={16} color="#E63946" />
+            </TouchableOpacity>
+          )}
+
+          <SettingItem icon="mail-outline" label="Email" value={user?.email ?? ""} hasArrow={false} />
+
+          {isEditingPhone ? (
+            <View style={styles.editRow}>
+              <View style={styles.editIcon}>
+                <Ionicons name="call-outline" size={18} color="#E63946" />
+              </View>
+              <TextInput
+                style={styles.editInput}
+                value={phone}
+                onChangeText={setPhone}
+                autoFocus
+                placeholder="Enter phone number"
+                placeholderTextColor="#AAA"
+                keyboardType="phone-pad"
+              />
+              <TouchableOpacity onPress={handleSavePhone} disabled={saving}>
+                {saving ? (
+                  <ActivityIndicator size="small" color="#E63946" />
+                ) : (
+                  <Ionicons name="checkmark-circle" size={24} color="#E63946" />
+                )}
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <TouchableOpacity
+              style={styles.settingItem}
+              onPress={() => {
+                setPhone(user?.phone ?? "");
+                setIsEditingPhone(true);
+              }}
+            >
+              <View style={styles.settingIcon}>
+                <Ionicons name="call-outline" size={18} color="#E63946" />
+              </View>
+              <View style={styles.settingContent}>
+                <Text style={styles.settingLabel}>Phone Number</Text>
+                <Text style={styles.settingValue}>{user?.phone || "Not set"}</Text>
+              </View>
+              <Ionicons name="create-outline" size={16} color="#E63946" />
+            </TouchableOpacity>
+          )}
         </View>
 
         <Text style={styles.sectionTitle}>Notifications</Text>
@@ -89,15 +218,15 @@ export default function SettingsScreen({ navigation }: Props) {
             icon="notifications-outline"
             label="Push Notifications"
             description="Get notified about new messages and updates"
-            value={notificationsEnabled}
-            onValueChange={setNotificationsEnabled}
+            value={profile?.pushNotifications ?? true}
+            onValueChange={handleTogglePushNotifications}
           />
           <SettingToggle
             icon="mail-outline"
             label="Email Alerts"
             description="Receive email notifications for important updates"
-            value={emailAlerts}
-            onValueChange={setEmailAlerts}
+            value={profile?.emailAlerts ?? false}
+            onValueChange={handleToggleEmailAlerts}
           />
         </View>
 

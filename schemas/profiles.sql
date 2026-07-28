@@ -2,6 +2,9 @@ create table profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   name text,
   email text,
+  phone_number text,
+  push_notifications boolean default true,
+  email_alerts boolean default false,
   created_at timestamptz default now()
 );
 
