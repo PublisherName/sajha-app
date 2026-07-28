@@ -11,6 +11,7 @@ export function ListingsProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     fetchListings();
+    fetchSavedListings();
   }, []);
 
   const fetchListings = async () => {
@@ -36,6 +37,22 @@ export function ListingsProvider({ children }: { children: ReactNode }) {
     }));
 
     setListings(mapped);
+  };
+
+  const fetchSavedListings = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data, error } = await supabase.from("saved_listings").select("listing_id").eq("user_id", user.id);
+
+    if (error) {
+      console.error("Failed to fetch saved listings:", error.message);
+      return;
+    }
+
+    setSavedListingIds(data.map((row) => row.listing_id));
   };
 
   const addListing = async (newListing: Listing) => {
@@ -98,10 +115,38 @@ export function ListingsProvider({ children }: { children: ReactNode }) {
     setListings((prev) => prev.map((item) => (item.id === listingId ? { ...item, ...data } : item)));
   };
 
-  const toggleSaveListing = (listingId: string) => {
-    setSavedListingIds((prev) =>
-      prev.includes(listingId) ? prev.filter((id) => id !== listingId) : [...prev, listingId],
-    );
+  const toggleSaveListing = async (listingId: string) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const isSaved = savedListingIds.includes(listingId);
+
+    if (isSaved) {
+      const { error } = await supabase
+        .from("saved_listings")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("listing_id", listingId);
+
+      if (error) {
+        console.error("Failed to unsave listing:", error.message);
+        return;
+      }
+      setSavedListingIds((prev) => prev.filter((id) => id !== listingId));
+    } else {
+      const { error } = await supabase.from("saved_listings").insert({
+        user_id: user.id,
+        listing_id: listingId,
+      });
+
+      if (error) {
+        console.error("Failed to save listing:", error.message);
+        return;
+      }
+      setSavedListingIds((prev) => [...prev, listingId]);
+    }
   };
 
   const isListingSaved = (listingId: string) => {

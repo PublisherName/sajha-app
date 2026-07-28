@@ -20,7 +20,7 @@ export interface ListingsContextValue {
   deleteListing: (listingId: string) => Promise<void>;
   updateListing: (listingId: string, data: Partial<Listing>) => Promise<void>;
   savedListingIds: string[];
-  toggleSaveListing: (listingId: string) => void;
+  toggleSaveListing: (listingId: string) => Promise<void>;
   isListingSaved: (listingId: string) => boolean;
 }
 
