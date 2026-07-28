@@ -24,8 +24,10 @@ export default function ProfileHeader({ name, email, initials }: ProfileHeaderPr
         <Text style={styles.avatarText}>{displayInitials}</Text>
       </View>
 
-      <Text style={styles.name}>{name}</Text>
-      {email ? <Text style={styles.email}>{email}</Text> : null}
+      <View style={styles.info}>
+        <Text style={styles.name}>{name}</Text>
+        {email ? <Text style={styles.email}>{email}</Text> : null}
+      </View>
     </View>
   );
 }

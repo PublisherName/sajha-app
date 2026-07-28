@@ -4,10 +4,34 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F7F7F7",
-    padding: 18,
+  },
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: 48,
+    paddingHorizontal: 16,
+    paddingBottom: 14,
+    backgroundColor: "#E63946",
+  },
+
+  backButton: {
+    padding: 6,
+  },
+
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#FFFFFF",
+    marginLeft: 12,
+  },
+
+  headerSpacer: {
+    width: 34,
   },
 
   list: {
+    padding: 14,
     paddingBottom: 100,
   },
 });

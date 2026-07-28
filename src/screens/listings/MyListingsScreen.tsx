@@ -1,9 +1,9 @@
+import { Ionicons } from "@expo/vector-icons";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 
 import EmptyState from "@/components/EmptyState";
 import ListingCard from "@/components/ListingCard";
-import ScreenTitle from "@/components/ScreenTitle";
 import { useListings } from "@/context/ListingsContext";
 import type { RootStackParamList } from "@/types";
 
@@ -17,7 +17,13 @@ export default function MyListingsScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <ScreenTitle title="My Listings" subtitle="Listings you have posted on Sajha." />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={22} color="#FFFFFF" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>My Listings</Text>
+        <View style={styles.headerSpacer} />
+      </View>
 
       <FlatList
         data={myListings}

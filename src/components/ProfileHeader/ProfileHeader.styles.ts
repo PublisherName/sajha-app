@@ -2,40 +2,47 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
+    flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 30,
-    paddingHorizontal: 18,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
     backgroundColor: "#FFFFFF",
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
-    marginBottom: 20,
+    marginHorizontal: 16,
+    marginTop: 12,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "#EEEEEE",
   },
 
   avatar: {
-    width: 96,
-    height: 96,
-    borderRadius: 48,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: "#E63946",
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 16,
+    marginRight: 14,
   },
 
   avatarText: {
-    fontSize: 32,
-    fontWeight: "800",
+    fontSize: 20,
+    fontWeight: "700",
     color: "#FFFFFF",
   },
 
+  info: {
+    flex: 1,
+  },
+
   name: {
-    fontSize: 22,
-    fontWeight: "800",
+    fontSize: 17,
+    fontWeight: "700",
     color: "#222",
-    marginBottom: 4,
+    marginBottom: 2,
   },
 
   email: {
-    fontSize: 14,
+    fontSize: 13,
     color: "#888",
   },
 });

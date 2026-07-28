@@ -4,11 +4,11 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F7F7F7",
-    paddingTop: 20,
   },
 
-  header: {
+  menuSection: {
     paddingHorizontal: 16,
-    paddingTop: 20,
+    marginTop: 12,
+    gap: 10,
   },
 });
