@@ -3,6 +3,7 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import { Text, View } from "react-native";
 
+import DrawerMenuButton from "@/components/DrawerMenuButton";
 import ListingsFeed from "@/components/ListingsFeed";
 import SearchBar from "@/components/SearchBar";
 import { useListings } from "@/context/ListingsContext";
@@ -45,6 +46,9 @@ export default function CategoryScreen({ title, subtitle, category, navigation }
   return (
     <View style={styles.container}>
       <View style={[styles.hero, { backgroundColor: categoryColors[category] }]}>
+        <View style={styles.heroHeader}>
+          <DrawerMenuButton />
+        </View>
         <View style={styles.heroIcon}>
           <Ionicons name={categoryIcons[category]} size={28} color="#FFFFFF" />
         </View>

@@ -5,14 +5,14 @@ import PostListingScreen from "@/screens/listings/PostListingScreen";
 import SavedScreen from "@/screens/listings/SavedScreen";
 import ViewListingScreen from "@/screens/listings/ViewListingScreen";
 import type { RootStackParamList } from "@/types";
-import BottomTabs from "./BottomTabs";
+import DrawerNavigator from "./DrawerNavigator";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="MainTabs" component={BottomTabs} />
+      <Stack.Screen name="MainDrawer" component={DrawerNavigator} />
       <Stack.Screen name="ListingDetail" component={ViewListingScreen} />
       <Stack.Screen name="PostListing" component={PostListingScreen} />
       <Stack.Screen name="Saved" component={SavedScreen} />

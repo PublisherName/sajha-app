@@ -1,10 +1,10 @@
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { useState } from "react";
-import { View } from "react-native";
+import { useRef, useState } from "react";
+import { Animated, type NativeScrollEvent, type NativeSyntheticEvent, TouchableOpacity, View } from "react-native";
 
 import CategoryFilter from "@/components/CategoryFilter";
-import CommunityBanner from "@/components/CommunityBanner";
 import Header from "@/components/Header";
 import ListingsFeed from "@/components/ListingsFeed";
 import SearchBar from "@/components/SearchBar";
@@ -17,6 +17,7 @@ export default function HomeScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [activeCategory, setActiveCategory] = useState<ListingCategory | "all">("all");
   const [searchText, setSearchText] = useState("");
+  const fabOpacity = useRef(new Animated.Value(1)).current;
 
   const { listings } = useListings();
 
@@ -29,13 +30,31 @@ export default function HomeScreen() {
     return matchesCategory && matchesSearch;
   });
 
+  const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offsetY = e.nativeEvent.contentOffset.y;
+    Animated.timing(fabOpacity, {
+      toValue: offsetY > 80 ? 0 : 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  };
+
   return (
     <View style={styles.container}>
       <Header />
       <CategoryFilter activeCategory={activeCategory} onSelect={setActiveCategory} />
       <SearchBar value={searchText} onChangeText={setSearchText} />
-      <CommunityBanner />
-      <ListingsFeed listings={filteredListings} navigation={navigation} />
+      <ListingsFeed listings={filteredListings} navigation={navigation} onScroll={onScroll} />
+
+      <Animated.View style={[styles.fab, { opacity: fabOpacity }]}>
+        <TouchableOpacity
+          style={styles.fabButton}
+          activeOpacity={0.85}
+          onPress={() => navigation.navigate("PostListing")}
+        >
+          <Ionicons name="add" size={26} color="#FFFFFF" />
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 }

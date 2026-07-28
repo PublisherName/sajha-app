@@ -25,7 +25,7 @@ export interface ListingsContextValue {
 }
 
 export type RootStackParamList = {
-  MainTabs: undefined;
+  MainDrawer: undefined;
   ListingDetail: { item: Listing };
   PostListing: undefined;
   Saved: undefined;
@@ -33,11 +33,12 @@ export type RootStackParamList = {
   EditListing: { item: Listing };
 };
 
-export type TabParamList = {
+export type DrawerParamList = {
   Home: undefined;
   Jobs: undefined;
-  Post: undefined;
   Rooms: undefined;
   Market: undefined;
+  Saved: undefined;
+  MyListings: undefined;
   Profile: undefined;
 };

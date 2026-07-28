@@ -8,6 +8,15 @@ export const styles = StyleSheet.create({
     paddingBottom: 18,
   },
 
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  headerText: {
+    marginLeft: 12,
+  },
+
   logo: {
     fontSize: 28,
     fontWeight: "800",

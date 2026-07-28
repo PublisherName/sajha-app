@@ -14,6 +14,12 @@ export const styles = StyleSheet.create({
     borderBottomRightRadius: 24,
   },
 
+  heroHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+
   heroIcon: {
     width: 42,
     height: 42,

@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View } from "react-native";
 
+import DrawerMenuButton from "@/components/DrawerMenuButton";
 import MenuItem from "@/components/MenuItem";
 import ProfileHeader from "@/components/ProfileHeader";
 import type { RootStackParamList } from "@/types";
@@ -13,6 +14,10 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <DrawerMenuButton />
+      </View>
+
       <ProfileHeader name="Sajha User" email="user@sajha.co.uk" />
 
       <MenuItem icon="heart-outline" label="Saved Listings" onPress={() => navigation.navigate("Saved")} />
