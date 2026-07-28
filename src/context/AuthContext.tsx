@@ -26,6 +26,7 @@ interface AuthContextValue {
   logout: () => Promise<void>;
   updateProfile: (data: Partial<ProfileData>) => Promise<{ error?: string }>;
   changePassword: (currentPassword: string, newPassword: string) => Promise<{ error?: string }>;
+  resetPassword: (email: string) => Promise<{ error?: string }>;
 }
 
 const AuthContext = createContext<AuthContextValue>({
@@ -38,6 +39,7 @@ const AuthContext = createContext<AuthContextValue>({
   logout: async () => {},
   updateProfile: async () => ({}),
   changePassword: async () => ({}),
+  resetPassword: async () => ({}),
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -162,6 +164,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return {};
   };
 
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "sajha://reset-password",
+    });
+    if (error) {
+      return { error: error.message };
+    }
+    return {};
+  };
+
   const user: AuthUser | null = session?.user
     ? (() => {
         const meta = session.user.user_metadata;
@@ -179,7 +191,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: !!session, isLoading, user, profile, login, signup, logout, updateProfile, changePassword }}
+      value={{
+        isLoggedIn: !!session,
+        isLoading,
+        user,
+        profile,
+        login,
+        signup,
+        logout,
+        updateProfile,
+        changePassword,
+        resetPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>

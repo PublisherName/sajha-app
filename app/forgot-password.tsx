@@ -15,28 +15,28 @@ import { useAuth } from "@/context/AuthContext";
 
 import { styles } from "@/screens/auth/login.styles";
 
-export default function LoginScreen() {
-  const { login } = useAuth();
+export default function ForgotPasswordScreen() {
+  const { resetPassword } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  const handleLogin = async () => {
+  const handleReset = async () => {
     setError("");
-    if (!email.trim() || !password.trim()) {
-      setError("Please enter both email and password.");
+    setSuccess(false);
+    if (!email.trim()) {
+      setError("Please enter your email address.");
       return;
     }
     setLoading(true);
-    const result = await login(email.trim(), password);
+    const result = await resetPassword(email.trim());
     setLoading(false);
     if (result.error) {
       setError(result.error);
     } else {
-      router.replace("/");
+      setSuccess(true);
     }
   };
 
@@ -48,7 +48,7 @@ export default function LoginScreen() {
             <View style={styles.logoIconInner} />
           </View>
           <Text style={styles.appName}>Sajha</Text>
-          <Text style={styles.tagline}>UK Nepali Community Hub</Text>
+          <Text style={styles.tagline}>Reset Your Password</Text>
         </View>
 
         <View style={styles.formSection}>
@@ -56,6 +56,13 @@ export default function LoginScreen() {
             <View style={styles.errorBox}>
               <Ionicons name="alert-circle" size={16} color="#E63946" />
               <Text style={styles.errorText}>{error}</Text>
+            </View>
+          ) : null}
+
+          {success ? (
+            <View style={styles.successBox}>
+              <Ionicons name="checkmark-circle" size={16} color="#2ECC71" />
+              <Text style={styles.successText}>Password reset link sent! Check your email.</Text>
             </View>
           ) : null}
 
@@ -70,43 +77,18 @@ export default function LoginScreen() {
             keyboardType="email-address"
           />
 
-          <Text style={styles.label}>Password</Text>
-          <View style={styles.passwordRow}>
-            <TextInput
-              style={styles.passwordInput}
-              placeholder="Enter your password"
-              placeholderTextColor="#AAA"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry={!showPassword}
-            />
-            <TouchableOpacity style={styles.eyeButton} onPress={() => setShowPassword(!showPassword)}>
-              <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={20} color="#888" />
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity style={styles.forgotPassword} onPress={() => router.push("/forgot-password")}>
-            <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-          </TouchableOpacity>
-
           <TouchableOpacity
             style={[styles.loginButton, loading && { opacity: 0.7 }]}
-            onPress={handleLogin}
+            onPress={handleReset}
             activeOpacity={0.85}
             disabled={loading}
           >
-            {loading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.loginButtonText}>Log In</Text>}
+            {loading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.loginButtonText}>Send Reset Link</Text>}
           </TouchableOpacity>
 
-          <View style={styles.divider}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>OR</Text>
-            <View style={styles.dividerLine} />
-          </View>
-
-          <TouchableOpacity style={styles.signupLink} onPress={() => router.push("/signup")}>
+          <TouchableOpacity style={styles.signupLink} onPress={() => router.back()}>
             <Text style={styles.signupText}>
-              Don't have an account? <Text style={styles.signupBold}>Sign Up</Text>
+              Back to <Text style={styles.signupBold}>Log In</Text>
             </Text>
           </TouchableOpacity>
         </View>

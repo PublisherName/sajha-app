@@ -66,6 +66,22 @@ export const styles = StyleSheet.create({
     color: "#E63946",
   },
 
+  successBox: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F0FFF4",
+    padding: 12,
+    borderRadius: 10,
+    gap: 8,
+    marginBottom: 8,
+  },
+
+  successText: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#2ECC71",
+  },
+
   label: {
     fontSize: 14,
     fontWeight: "600",
@@ -123,6 +139,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 12,
     alignItems: "center",
+    marginTop: 12,
   },
 
   loginButtonText: {
