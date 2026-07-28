@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import FormInput from "@/components/FormInput";
 import ImagePickerBox from "@/components/ImagePickerBox";
@@ -61,6 +61,8 @@ export default function PostListingScreen({ navigation }: Props) {
   const [category, setCategory] = useState<ListingCategory>("job");
   const [formData, setFormData] = useState<Record<string, string>>({});
   const [imageUri, setImageUri] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const { addListing } = useListings();
 
@@ -86,9 +88,17 @@ export default function PostListingScreen({ navigation }: Props) {
     }
   };
 
-  const handlePublish = () => {
+  const handlePublish = async () => {
+    setError("");
+    if (!formData.title?.trim()) {
+      setError("Please fill in the title.");
+      return;
+    }
+
+    setLoading(true);
+
     const newListing = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       isMine: true,
       type: category,
       title: formData.title || "Untitled Listing",
@@ -101,7 +111,8 @@ export default function PostListingScreen({ navigation }: Props) {
       extra: formData,
     };
 
-    addListing(newListing);
+    await addListing(newListing);
+    setLoading(false);
     navigation.goBack();
   };
 
@@ -140,6 +151,13 @@ export default function PostListingScreen({ navigation }: Props) {
 
         <ImagePickerBox imageUri={imageUri} onPress={pickImage} />
 
+        {error ? (
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 6, marginBottom: 12 }}>
+            <Ionicons name="alert-circle" size={16} color="#E63946" />
+            <Text style={{ color: "#E63946", fontSize: 13 }}>{error}</Text>
+          </View>
+        ) : null}
+
         {formFields[category].map((field) => (
           <FormInput
             key={field.key}
@@ -151,8 +169,12 @@ export default function PostListingScreen({ navigation }: Props) {
           />
         ))}
 
-        <TouchableOpacity style={styles.submitButton} onPress={handlePublish}>
-          <Text style={styles.submitText}>Publish Listing</Text>
+        <TouchableOpacity
+          style={[styles.submitButton, loading && { opacity: 0.7 }]}
+          onPress={handlePublish}
+          disabled={loading}
+        >
+          {loading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.submitText}>Publish Listing</Text>}
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.goBack()}>

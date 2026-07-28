@@ -16,9 +16,9 @@ export interface Listing {
 
 export interface ListingsContextValue {
   listings: Listing[];
-  addListing: (listing: Listing) => void;
-  deleteListing: (listingId: string) => void;
-  updateListing: (listingId: string, data: Partial<Listing>) => void;
+  addListing: (listing: Listing) => Promise<void>;
+  deleteListing: (listingId: string) => Promise<void>;
+  updateListing: (listingId: string, data: Partial<Listing>) => Promise<void>;
   savedListingIds: string[];
   toggleSaveListing: (listingId: string) => void;
   isListingSaved: (listingId: string) => boolean;
