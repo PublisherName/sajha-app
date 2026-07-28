@@ -2,9 +2,11 @@ import { Ionicons } from "@expo/vector-icons";
 import type { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useRouter } from "expo-router";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { useAuth } from "@/context/AuthContext";
 import type { RootStackParamList } from "@/types";
 
 import { styles } from "./SidebarDrawer.styles";
@@ -20,6 +22,8 @@ const menuItems = [
 export default function SidebarDrawer(props: DrawerContentComponentProps) {
   const { navigation, state } = props;
   const rootNavigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const router = useRouter();
+  const { logout } = useAuth();
   const currentRoute = state.routes[state.index]?.name;
   const insets = useSafeAreaInsets();
 
@@ -78,7 +82,14 @@ export default function SidebarDrawer(props: DrawerContentComponentProps) {
           <Text style={styles.bottomMenuLabel}>Settings</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.bottomMenuItem}>
+        <TouchableOpacity
+          style={styles.bottomMenuItem}
+          onPress={() => {
+            logout();
+            navigation.closeDrawer();
+            router.replace("/login");
+          }}
+        >
           <Ionicons name="log-out-outline" size={20} color="#666" />
           <Text style={styles.bottomMenuLabel}>Sign Out</Text>
         </TouchableOpacity>

@@ -8,11 +8,7 @@ export const styles = StyleSheet.create({
     borderRadius: 14,
     borderWidth: 1,
     borderColor: "#EEEEEE",
-
-    shadowColor: "#000",
-    shadowOpacity: 0.04,
-    shadowRadius: 6,
-    elevation: 2,
+    boxShadow: "0 1px 6px rgba(0, 0, 0, 0.04)",
   },
 
   image: {
