@@ -136,6 +136,73 @@ export const styles = StyleSheet.create({
     fontSize: 13,
   },
 
+  passwordForm: {
+    paddingVertical: 8,
+  },
+
+  passwordErrorRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 16,
+    paddingBottom: 8,
+  },
+
+  passwordErrorText: {
+    color: "#E63946",
+    fontSize: 12,
+  },
+
+  successRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+
+  successText: {
+    color: "#2ECC71",
+    fontSize: 13,
+  },
+
+  passwordActions: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    gap: 12,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 8,
+  },
+
+  passwordCancelButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    backgroundColor: "#F0F0F0",
+  },
+
+  passwordCancelText: {
+    color: "#666",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+
+  passwordSaveButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    backgroundColor: "#E63946",
+    minWidth: 80,
+    alignItems: "center",
+  },
+
+  passwordSaveText: {
+    color: "#FFFFFF",
+    fontSize: 14,
+    fontWeight: "700",
+  },
+
   bottomSpacer: {
     height: 40,
   },
