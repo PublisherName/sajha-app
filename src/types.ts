@@ -38,7 +38,5 @@ export type DrawerParamList = {
   Jobs: undefined;
   Rooms: undefined;
   Market: undefined;
-  Saved: undefined;
-  MyListings: undefined;
   Profile: undefined;
 };

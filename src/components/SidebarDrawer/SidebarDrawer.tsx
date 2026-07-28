@@ -14,8 +14,6 @@ const menuItems = [
   { icon: "briefcase-outline" as const, label: "Jobs", route: "Jobs" as const },
   { icon: "bed-outline" as const, label: "Rooms", route: "Rooms" as const },
   { icon: "cart-outline" as const, label: "Market", route: "Market" as const },
-  { icon: "heart-outline" as const, label: "Saved Listings", route: "Saved" as const },
-  { icon: "document-text-outline" as const, label: "My Listings", route: "MyListings" as const },
   { icon: "person-outline" as const, label: "Profile", route: "Profile" as const },
 ];
 
