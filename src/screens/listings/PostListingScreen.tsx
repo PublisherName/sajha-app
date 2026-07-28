@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
@@ -5,7 +6,6 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import FormInput from "@/components/FormInput";
 import ImagePickerBox from "@/components/ImagePickerBox";
-import ScreenTitle from "@/components/ScreenTitle";
 import { useListings } from "@/context/ListingsContext";
 import type { ListingCategory, RootStackParamList } from "@/types";
 
@@ -106,51 +106,59 @@ export default function PostListingScreen({ navigation }: Props) {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <ScreenTitle title="Post a Listing" subtitle="Share jobs, rooms, or marketplace items with the community." />
-
-      <Text style={styles.label}>Category</Text>
-
-      <View style={styles.categoryRow}>
-        {(["job", "room", "market"] as const).map((item) => (
-          <TouchableOpacity
-            key={item}
-            onPress={() => {
-              setCategory(item);
-              setFormData({});
-              setImageUri(null);
-            }}
-            style={[styles.categoryChip, category === item && styles.activeCategoryChip]}
-          >
-            <Text style={[styles.categoryText, category === item && styles.activeCategoryText]}>
-              {item.toUpperCase()}
-            </Text>
-          </TouchableOpacity>
-        ))}
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={22} color="#FFFFFF" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Post a Listing</Text>
+        <View style={styles.headerSpacer} />
       </View>
 
-      <Text style={styles.label}>{imageLabels[category]}</Text>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        <Text style={styles.label}>Category</Text>
 
-      <ImagePickerBox imageUri={imageUri} onPress={pickImage} />
+        <View style={styles.categoryRow}>
+          {(["job", "room", "market"] as const).map((item) => (
+            <TouchableOpacity
+              key={item}
+              onPress={() => {
+                setCategory(item);
+                setFormData({});
+                setImageUri(null);
+              }}
+              style={[styles.categoryChip, category === item && styles.activeCategoryChip]}
+            >
+              <Text style={[styles.categoryText, category === item && styles.activeCategoryText]}>
+                {item.toUpperCase()}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      {formFields[category].map((field) => (
-        <FormInput
-          key={field.key}
-          label={field.label}
-          value={formData[field.key] || ""}
-          onChangeText={(value) => updateField(field.key, value)}
-          placeholder={field.placeholder}
-          multiline={field.multiline}
-        />
-      ))}
+        <Text style={styles.label}>{imageLabels[category]}</Text>
 
-      <TouchableOpacity style={styles.submitButton} onPress={handlePublish}>
-        <Text style={styles.submitText}>Publish Listing</Text>
-      </TouchableOpacity>
+        <ImagePickerBox imageUri={imageUri} onPress={pickImage} />
 
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Text style={styles.cancelText}>Cancel</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        {formFields[category].map((field) => (
+          <FormInput
+            key={field.key}
+            label={field.label}
+            value={formData[field.key] || ""}
+            onChangeText={(value) => updateField(field.key, value)}
+            placeholder={field.placeholder}
+            multiline={field.multiline}
+          />
+        ))}
+
+        <TouchableOpacity style={styles.submitButton} onPress={handlePublish}>
+          <Text style={styles.submitText}>Publish Listing</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Text style={styles.cancelText}>Cancel</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
   );
 }
