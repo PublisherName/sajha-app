@@ -4,6 +4,7 @@ import MyListingsScreen from "@/screens/listings/MyListingsScreen";
 import PostListingScreen from "@/screens/listings/PostListingScreen";
 import SavedScreen from "@/screens/listings/SavedScreen";
 import ViewListingScreen from "@/screens/listings/ViewListingScreen";
+import SettingsScreen from "@/screens/profile/SettingsScreen";
 import type { RootStackParamList } from "@/types";
 import DrawerNavigator from "./DrawerNavigator";
 
@@ -18,6 +19,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Saved" component={SavedScreen} />
       <Stack.Screen name="MyListings" component={MyListingsScreen} />
       <Stack.Screen name="EditListing" component={EditListingScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
   );
 }

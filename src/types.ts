@@ -31,6 +31,7 @@ export type RootStackParamList = {
   Saved: undefined;
   MyListings: undefined;
   EditListing: { item: Listing };
+  Settings: undefined;
 };
 
 export type DrawerParamList = {

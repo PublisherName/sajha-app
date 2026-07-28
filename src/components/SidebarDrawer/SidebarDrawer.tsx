@@ -67,7 +67,13 @@ export default function SidebarDrawer(props: DrawerContentComponentProps) {
           <Text style={styles.postButtonText}>New Post</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.bottomMenuItem}>
+        <TouchableOpacity
+          style={styles.bottomMenuItem}
+          onPress={() => {
+            navigation.closeDrawer();
+            rootNavigation.navigate("Settings");
+          }}
+        >
           <Ionicons name="settings-outline" size={20} color="#666" />
           <Text style={styles.bottomMenuLabel}>Settings</Text>
         </TouchableOpacity>
